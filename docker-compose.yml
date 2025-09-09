@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  backend:
+    build: 
+      context: ./GestaoDeCadastro
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "5000:80"
+
+  frontend:
+    build: 
+      context: ./GestaoDeCadastro-frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_BACKEND_URL: http://localhost:5000  # <-- variável para o build
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
