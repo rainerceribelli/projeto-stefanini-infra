@@ -1,0 +1,89 @@
+/* DevExtreme Styles */
+@import 'devextreme/dist/css/dx.light.css';
+
+/* Custom styles for DevExtreme DataGrid */
+.dx-datagrid {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.dx-datagrid-headers {
+  background-color: #fafafa;
+  border-bottom: 2px solid #e8e8e8;
+}
+
+.dx-datagrid-header-panel {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.dx-datagrid-rowsview .dx-row:hover {
+  background-color: #e6f7ff;
+}
+
+.dx-datagrid-rowsview .dx-row.dx-state-hover {
+  background-color: #e6f7ff;
+}
+
+.dx-datagrid-rowsview .dx-row.dx-selection {
+  background-color: #bae7ff;
+}
+
+.dx-datagrid-rowsview .dx-row.dx-selection:hover {
+  background-color: #91d5ff;
+}
+
+/* Custom button styles */
+.dx-button {
+  border-radius: 6px;
+}
+
+.dx-button.dx-button-mode-contained {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.dx-button.dx-button-mode-contained:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.dx-button.dx-button-mode-contained.dx-state-hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+/* Search panel styles */
+.dx-datagrid-search-panel {
+  margin-bottom: 10px;
+}
+
+/* Pager styles */
+.dx-datagrid-pager {
+  background-color: #fafafa;
+  border-top: 1px solid #e8e8e8;
+}
+
+/* Popup styles */
+.dx-popup-content {
+  padding: 20px;
+}
+
+.dx-form-layout-manager .dx-field-label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.dx-form-layout-manager .dx-field-item {
+  margin-bottom: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dx-datagrid {
+    font-size: 12px;
+  }
+  
+  .dx-datagrid-headers .dx-header-row {
+    font-size: 12px;
+  }
+}
