@@ -22,7 +22,6 @@ const CadastroPessoa = () => {
     setLoading(true);
     try {
       const data = await pessoaService.getListPessoas();
-      console.log(data);
       setPessoas(data || []);
     } catch (error) {
       console.error("Erro ao carregar pessoas:", error);
