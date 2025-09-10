@@ -47,4 +47,9 @@ function CleanTelefone(value) {
   return value.replace(/\D/g, "");
 }
 
-export { ValidaCep, FormatCep, FormatCpf, FormatTelefone, CleanCpf, CleanTelefone };
+function CleanCEP(value) {
+  if (value == null) return "";
+  return value.replace(/\D/g, "");
+}
+
+export { ValidaCep, FormatCep, FormatCpf, FormatTelefone, CleanCpf, CleanTelefone, CleanCEP };

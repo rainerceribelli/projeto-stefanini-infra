@@ -6,7 +6,7 @@ import pessoaService from "../../services/pessoaService";
 import PageHeader from "../../components/PageHeader";
 import PessoaGrid from "./Components/Grid/PessoaGrid";
 import PessoaModal from "../../components/PessoaModal";
-import { CleanCpf, CleanTelefone } from "../../Utils/Functions";
+import { CleanCEP, CleanCpf, CleanTelefone, FormatCep, FormatCpf, FormatTelefone } from "../../Utils/Functions";
 
 const CadastroPessoa = () => {
   const [pessoas, setPessoas] = useState([]);
@@ -65,12 +65,8 @@ const CadastroPessoa = () => {
 
     } catch (error) {
       const erros = error.response?.data?.erros;
-      if (erros) {
-        const fields = Object.keys(erros).map((key) => ({
-          name: key,
-          errors: erros[key],
-        }));
-        form.setFields(fields);
+      if (Array.isArray(erros)) {
+        erros.forEach((msg) => message.error(msg));
       } else {
         message.error("Erro ao criar pessoa!");
       }
@@ -81,12 +77,12 @@ const CadastroPessoa = () => {
     setEditingPessoa(pessoa);
     form.setFieldsValue({
       nome: pessoa.nome,
-      cpf: pessoa.cpf,
+      cpf: FormatCpf(pessoa.cpf),
       dataNascimento: pessoa.dataNascimento
-        ? moment(pessoa.dataNascimento)
+        ? moment(pessoa.dataNascimento, "YYYY-MM-DD")
         : null,
       email: pessoa.email,
-      telefone: pessoa.telefone,
+      telefone: FormatTelefone(pessoa.telefone),
       naturalidade: pessoa.naturalidade,
       nacionalidade: pessoa.nacionalidade,
       sexo: pessoa.sexo,
@@ -94,7 +90,7 @@ const CadastroPessoa = () => {
       numero: pessoa.numero,
       cidade: pessoa.cidade,
       estado: pessoa.estado,
-      cep: pessoa.cep,
+      cep: FormatCep(pessoa.cep),
       bairro: pessoa.bairro,
       complemento: pessoa.complemento,
     });
@@ -113,15 +109,16 @@ const CadastroPessoa = () => {
         telefone: CleanTelefone(values.telefone),
         nacionalidade: values.nacionalidade,
         naturalidade: values.naturalidade,
-        sexo: values.sexo,
         bitAtivo: editingPessoa.bitAtivo !== undefined ? editingPessoa.bitAtivo : true,
         endereco: {
           id: editingPessoa.endereco?.id || 0,
           rua: values.logradouro,
           numero: values.numero,
+          complemento: values.complemento,
+          bairro: values.bairro,
           cidade: values.cidade,
           estado: values.estado,
-          cep: values.cep,
+          cep: CleanCEP(values.cep),
         },
       };
 
@@ -133,12 +130,12 @@ const CadastroPessoa = () => {
       setEditingPessoa(null);
       loadPessoas();
     } catch (error) {
-      console.error("Erro ao atualizar pessoa:", error);
-      console.error("Detalhes do erro:", error.response?.data);
-      message.error(
-        "Erro ao atualizar pessoa: " +
-        (error.response?.data?.message || error.message)
-      );
+      const erros = error.response?.data?.erros;
+      if (Array.isArray(erros)) {
+        erros.forEach((msg) => message.error(msg));
+      } else {
+        message.error("Erro ao criar pessoa!");
+      }
     }
   };
 
@@ -169,11 +166,12 @@ const CadastroPessoa = () => {
           message.success("Pessoa excluída com sucesso!");
           loadPessoas();
         } catch (error) {
-          console.error("Erro ao excluir pessoa:", error);
-          message.error(
-            "Erro ao excluir pessoa: " +
-            (error.response?.data?.message || error.message)
-          );
+          const erros = error.response?.data?.erros;
+          if (Array.isArray(erros)) {
+            erros.forEach((msg) => message.error(msg));
+          } else {
+            message.error("Erro ao criar pessoa!");
+          }
         }
       },
     });

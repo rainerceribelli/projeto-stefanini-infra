@@ -1,5 +1,6 @@
 ﻿using GestaoDeCadastro.Crosscutting.DTO.Cadastro;
 using GestaoDeCadastro.Crosscutting.DTO.Cadastro.V1;
+using GestaoDeCadastro.Domain.Exceptions;
 using GestaoDeCadastro.Services.ApplicationServices.Cadastro;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -44,9 +45,13 @@ namespace GestaoDeCadastro.Interface.Controllers
                 await _service.CreatePessoa(CreatePessoa);
                 return Ok("Pessoa criada com sucesso");
             }
+            catch (DomainException ex)
+            {
+                return BadRequest(new { erros = ex.Errors });
+            }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { erros = new[] { ex.Message } });
             }
         }
 
@@ -58,9 +63,13 @@ namespace GestaoDeCadastro.Interface.Controllers
                 await _service.UpdatePessoa(UpdatePessoa);
                 return Ok("Pessoa atualizada com sucesso");
             }
+            catch (DomainException ex)
+            {
+                return BadRequest(new { erros = ex.Errors });
+            }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { erros = new[] { ex.Message } });
             }
         }
 
@@ -72,9 +81,13 @@ namespace GestaoDeCadastro.Interface.Controllers
                 await _service.DeletePessoa(id);
                 return Ok("Pessoa excluída com sucesso");
             }
+            catch (DomainException ex)
+            {
+                return BadRequest(new { erros = ex.Errors });
+            }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { erros = new[] { ex.Message } });
             }
         }
     }

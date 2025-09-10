@@ -2,14 +2,6 @@
 
 Frontend desenvolvido em React com Ant Design para o sistema de gestão de cadastro de pessoas.
 
-## 🚀 Tecnologias Utilizadas
-
-- **React 19** - Biblioteca para construção de interfaces
-- **Ant Design** - Biblioteca de componentes UI
-- **Axios** - Cliente HTTP para requisições
-- **React Router DOM** - Roteamento da aplicação
-- **Context API** - Gerenciamento de estado global
-
 ## 📋 Funcionalidades
 
 ### 🔐 Autenticação

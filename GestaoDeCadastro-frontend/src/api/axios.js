@@ -3,7 +3,7 @@ import axios from 'axios';
 let apiUrl = '';
 
 if (window.location.hostname === 'localhost') {
-  apiUrl = 'http://localhost:5000';
+  apiUrl = 'https://localhost:5000';
 } else {
   apiUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
 }

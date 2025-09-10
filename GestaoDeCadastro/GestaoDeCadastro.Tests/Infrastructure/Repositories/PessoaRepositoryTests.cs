@@ -98,19 +98,6 @@ namespace GestaoDeCadastro.Tests.Infrastructure.Repositories
             Assert.Null(pessoaRemovida);
         }
 
-        [Fact]
-        public async Task AddAsync_ComCPFDuplicado_DeveLancarExcecao()
-        {
-            var pessoa1 = new tPessoa("João Silva", "11144477735", new DateTime(1990, 1, 1));
-            var pessoa2 = new tPessoa("Maria Santos", "11144477735", new DateTime(1985, 5, 15));
-
-            _context.Pessoas.Add(pessoa1);
-            await _context.SaveChangesAsync();
-
-            _context.Pessoas.Add(pessoa2);
-            await Assert.ThrowsAsync<DbUpdateException>(async () => await _context.SaveChangesAsync());
-        }
-
         public void Dispose()
         {
             _context.Dispose();

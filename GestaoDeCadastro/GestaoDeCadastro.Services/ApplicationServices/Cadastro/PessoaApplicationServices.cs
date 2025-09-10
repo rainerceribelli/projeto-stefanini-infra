@@ -152,7 +152,6 @@ namespace GestaoDeCadastro.Services.ApplicationServices.Cadastro
                 throw new ArgumentException(string.Join(", ", pessoa.Notifications.Select(n => n.Message)));
 
             _uow.PessoaRepository.Add(pessoa);
-            await _uow.CommitAsync();
 
             var endereco = new tEndereco(
                 dto.Endereco.Logradouro,
@@ -174,6 +173,9 @@ namespace GestaoDeCadastro.Services.ApplicationServices.Cadastro
 
         public async Task UpdatePessoaV2(UpdatePessoaV2DTO dto)
         {
+            if (dto.Endereco == null)
+                throw new ArgumentException("Endereço é obrigatório na versão 2 da API");
+
             var pessoa = await _uow.PessoaRepository.GetByIdAsync(dto.Id);
             if (pessoa == null)
                 throw new Exception("Pessoa não encontrada");
